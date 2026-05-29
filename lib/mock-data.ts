@@ -2,6 +2,47 @@ export type ContactStatus = 'Lead' | 'Prospect' | 'Customer' | 'Churned'
 export type DealStage = 'new' | 'qualified' | 'proposal' | 'negotiation' | 'won' | 'lost'
 export type ActivityType = 'email' | 'call' | 'note' | 'meeting' | 'deal_update' | 'stage_change'
 export type Priority = 'Low' | 'Medium' | 'High'
+export type UserRole = 'Admin' | 'Sales Manager' | 'Sales Rep'
+
+export interface TeamMember {
+  id: string
+  name: string
+  email: string
+  role: UserRole
+  initials: string
+  color: string
+  department: string
+  joinedAt: string
+}
+
+export const team: TeamMember[] = [
+  { id: 'u1', name: 'Alex Chen',   email: 'alex@marquefactory.com',   role: 'Admin',         initials: 'AC', color: 'bg-violet-500',  department: 'Engineering',  joinedAt: '2024-01-10' },
+  { id: 'u2', name: 'Jordan Lee',  email: 'jordan@marquefactory.com', role: 'Sales Manager', initials: 'JL', color: 'bg-indigo-500',  department: 'Sales',        joinedAt: '2024-03-05' },
+  { id: 'u3', name: 'Sam Park',    email: 'sam@marquefactory.com',    role: 'Sales Rep',     initials: 'SP', color: 'bg-emerald-500', department: 'Sales',        joinedAt: '2024-06-20' },
+]
+
+export const CURRENT_USER = team[0]   // Alex Chen (Admin)
+
+export const rolePermissions: Record<UserRole, Record<string, boolean>> = {
+  'Admin': {
+    'View all contacts': true,  'Edit any contact': true,   'Delete contacts': true,
+    'View pipeline':     true,  'Create deals':     true,   'Close deals':     true,
+    'View analytics':    true,  'Export data':      true,   'Manage team':     true,
+    'Billing & plans':   true,
+  },
+  'Sales Manager': {
+    'View all contacts': true,  'Edit any contact': true,   'Delete contacts': false,
+    'View pipeline':     true,  'Create deals':     true,   'Close deals':     true,
+    'View analytics':    true,  'Export data':      true,   'Manage team':     false,
+    'Billing & plans':   false,
+  },
+  'Sales Rep': {
+    'View all contacts': false, 'Edit any contact': false,  'Delete contacts': false,
+    'View pipeline':     true,  'Create deals':     true,   'Close deals':     false,
+    'View analytics':    false, 'Export data':      false,  'Manage team':     false,
+    'Billing & plans':   false,
+  },
+}
 
 export interface Contact {
   id: string

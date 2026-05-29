@@ -7,8 +7,9 @@ import { useState } from 'react'
 
 const titles: Record<string, { title: string; subtitle: string }> = {
   '/dashboard': { title: 'Dashboard', subtitle: 'Welcome back, Alex' },
-  '/contacts': { title: 'Contacts', subtitle: 'Manage your leads and customers' },
-  '/pipeline': { title: 'Pipeline', subtitle: 'Track deals across stages' },
+  '/contacts':  { title: 'Contacts',  subtitle: 'Manage your leads and customers' },
+  '/pipeline':  { title: 'Pipeline',  subtitle: 'Track deals across stages' },
+  '/team':      { title: 'Team',      subtitle: 'Members, roles and permissions' },
 }
 
 export function Header() {
