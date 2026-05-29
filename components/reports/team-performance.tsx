@@ -40,7 +40,7 @@ export function TeamPerformance() {
           <YAxis tickFormatter={v => `$${(v / 1000).toFixed(0)}k`} tick={{ fontSize: 11, fill: textColor }} axisLine={false} tickLine={false} />
           <Tooltip
             contentStyle={{ background: tooltipBg, border: `1px solid ${tooltipBorder}`, borderRadius: 8, fontSize: 12, color: isDark ? '#e4e4e7' : '#0f172a' }}
-            formatter={(v: number) => [formatCurrency(v), 'Revenue Closed']}
+            formatter={(v) => [formatCurrency(Number(v ?? 0)), 'Revenue Closed']}
           />
           <Bar dataKey="wonValue" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
         </BarChart>

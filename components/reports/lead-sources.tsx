@@ -34,7 +34,7 @@ export function LeadSources() {
           <PolarAngleAxis dataKey="source" tick={{ fontSize: 10, fill: textColor }} />
           <Tooltip
             contentStyle={{ background: tooltipBg, border: `1px solid ${tooltipBorder}`, borderRadius: 8, fontSize: 12 }}
-            formatter={(v: number) => [v, 'Deals']}
+            formatter={(v) => [v ?? 0, 'Deals']}
           />
           <Radar name="Deals" dataKey="deals" stroke="#8b5cf6" fill="#8b5cf6" fillOpacity={0.2} strokeWidth={2} />
         </RadarChart>

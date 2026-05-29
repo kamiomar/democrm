@@ -48,7 +48,7 @@ export function MonthlyTargets() {
           <YAxis tickFormatter={v => `$${(v / 1000).toFixed(0)}k`} tick={{ fontSize: 10, fill: textColor }} axisLine={false} tickLine={false} />
           <Tooltip
             contentStyle={{ background: tooltipBg, border: `1px solid ${tooltipBorder}`, borderRadius: 8, fontSize: 12, color: isDark ? '#e4e4e7' : '#0f172a' }}
-            formatter={(v: number, name: string) => [`$${v.toLocaleString()}`, name === 'revenue' ? 'Revenue' : 'Target']}
+            formatter={(v, name) => [`$${Number(v ?? 0).toLocaleString()}`, name === 'revenue' ? 'Revenue' : 'Target']}
           />
           <Bar dataKey="target" fill={isDark ? '#3f3f46' : '#e2e8f0'} radius={[3, 3, 0, 0]} name="target" />
           <Bar dataKey="revenue" radius={[3, 3, 0, 0]} name="revenue">

@@ -24,7 +24,7 @@ const roleIcon: Record<UserRole, React.ElementType> = {
 const openDeals     = deals.filter(d => d.stage !== 'won' && d.stage !== 'lost').length
 const totalContacts = contacts.length
 
-const nav = [
+const nav: { href: string; icon: React.ElementType; label: string; badge: number | null; disabled?: boolean }[] = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', badge: null },
   { href: '/contacts',  icon: Users,           label: 'Contacts',  badge: totalContacts },
   { href: '/pipeline',  icon: Kanban,          label: 'Pipeline',  badge: openDeals },
