@@ -54,7 +54,7 @@ export function PipelineChart() {
           <YAxis tick={{ fontSize: 11, fill: textColor }} axisLine={false} tickLine={false} />
           <Tooltip
             contentStyle={{ background: tooltipBg, border: `1px solid ${tooltipBorder}`, borderRadius: 8, fontSize: 12, color: isDark ? '#e4e4e7' : '#0f172a' }}
-            formatter={(v: number, name: string) => [v, name === 'count' ? 'Deals' : 'Value']}
+            formatter={(v, name) => [v ?? 0, name === 'count' ? 'Deals' : 'Value']}
           />
           <Bar dataKey="count" name="count" radius={[4, 4, 0, 0]}>
             {data.map((entry, i) => (

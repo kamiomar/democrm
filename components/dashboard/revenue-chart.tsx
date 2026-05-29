@@ -53,7 +53,7 @@ export function RevenueChart() {
           <YAxis tickFormatter={formatK} tick={{ fontSize: 11, fill: textColor }} axisLine={false} tickLine={false} />
           <Tooltip
             contentStyle={{ background: tooltipBg, border: `1px solid ${tooltipBorder}`, borderRadius: 8, fontSize: 12, color: isDark ? '#e4e4e7' : '#0f172a' }}
-            formatter={(v: number) => [`$${v.toLocaleString()}`, '']}
+            formatter={(v) => [`$${Number(v ?? 0).toLocaleString()}`, '']}
           />
           <Area type="monotone" dataKey="target" stroke="#52525b" strokeWidth={1.5} strokeDasharray="4 4" fill="url(#colorTarget)" dot={false} name="Target" />
           <Area type="monotone" dataKey="revenue" stroke="#7c3aed" strokeWidth={2} fill="url(#colorRevenue)" dot={false} activeDot={{ r: 4, fill: '#7c3aed' }} name="Revenue" />
