@@ -10,6 +10,8 @@ const titles: Record<string, { title: string; subtitle: string }> = {
   '/contacts':  { title: 'Contacts',  subtitle: 'Manage your leads and customers' },
   '/pipeline':  { title: 'Pipeline',  subtitle: 'Track deals across stages' },
   '/team':      { title: 'Team',      subtitle: 'Members, roles and permissions' },
+  '/reports':   { title: 'Reports',   subtitle: 'Analytics and performance insights' },
+  '/settings':  { title: 'Settings',  subtitle: 'Manage your account and workspace' },
 }
 
 interface HeaderProps {

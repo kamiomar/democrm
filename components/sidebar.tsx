@@ -29,8 +29,8 @@ const nav = [
   { href: '/contacts',  icon: Users,           label: 'Contacts',  badge: totalContacts },
   { href: '/pipeline',  icon: Kanban,          label: 'Pipeline',  badge: openDeals },
   { href: '/team',      icon: UserRound,       label: 'Team',      badge: null },
-  { href: '/reports',   icon: BarChart3,       label: 'Reports',   badge: null, disabled: true },
-  { href: '/settings',  icon: Settings,        label: 'Settings',  badge: null, disabled: true },
+  { href: '/reports',   icon: BarChart3,       label: 'Reports',   badge: null },
+  { href: '/settings',  icon: Settings,        label: 'Settings',  badge: null },
 ]
 
 interface SidebarProps {
