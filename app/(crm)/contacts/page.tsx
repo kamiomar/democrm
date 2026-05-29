@@ -116,26 +116,33 @@ export default function ContactsPage() {
     <div className="max-w-7xl space-y-5">
 
       {/* ── Toolbar ── */}
-      <div className="flex flex-wrap items-center gap-3">
-        {/* Search */}
-        <div className="flex items-center gap-2 px-3 h-9 flex-1 min-w-48 max-w-72 rounded-lg bg-zinc-900 border border-zinc-800 dark:bg-zinc-900 dark:border-zinc-800 light:bg-white light:border-slate-200">
-          <Search size={13} className="text-zinc-500 flex-shrink-0" />
-          <input
-            value={search} onChange={e => setSearch(e.target.value)}
-            placeholder="Search contacts…"
-            className="flex-1 text-sm bg-transparent text-zinc-300 dark:text-zinc-300 light:text-slate-700 placeholder-zinc-600 dark:placeholder-zinc-600 light:placeholder-slate-400 outline-none"
-          />
-          {search && (
-            <button onClick={() => setSearch('')} className="text-zinc-600 hover:text-zinc-400 text-xs">✕</button>
-          )}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+        {/* Row 1 on mobile: search + add */}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 px-3 h-9 flex-1 rounded-lg bg-zinc-900 border border-zinc-800 dark:bg-zinc-900 dark:border-zinc-800 light:bg-white light:border-slate-200">
+            <Search size={13} className="text-zinc-500 flex-shrink-0" />
+            <input
+              value={search} onChange={e => setSearch(e.target.value)}
+              placeholder="Search contacts…"
+              className="flex-1 text-sm bg-transparent text-zinc-300 dark:text-zinc-300 light:text-slate-700 placeholder-zinc-600 dark:placeholder-zinc-600 light:placeholder-slate-400 outline-none min-w-0"
+            />
+            {search && (
+              <button onClick={() => setSearch('')} className="text-zinc-600 hover:text-zinc-400 text-xs flex-shrink-0">✕</button>
+            )}
+          </div>
+          {/* Add button — always visible */}
+          <button onClick={openAdd}
+            className="flex-shrink-0 flex items-center gap-1.5 px-3 sm:px-4 h-9 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold transition-colors shadow-sm shadow-violet-900/30">
+            <Plus size={14} /><span className="hidden sm:inline">Add Contact</span><span className="sm:hidden">Add</span>
+          </button>
         </div>
 
-        {/* Status filters */}
-        <div className="flex items-center gap-1.5">
+        {/* Row 2 on mobile: status filters (scrollable) */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 sm:pb-0 scrollbar-none sm:ml-auto">
           {FILTERS.map(s => (
             <button key={s} onClick={() => setStatusFilter(s)}
               className={cn(
-                'px-3 h-9 rounded-lg text-xs font-medium transition-colors',
+                'flex-shrink-0 px-3 h-8 rounded-lg text-xs font-medium transition-colors',
                 statusFilter === s
                   ? 'bg-violet-600 text-white shadow-sm shadow-violet-900/30'
                   : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 dark:bg-zinc-900 dark:border-zinc-800 light:bg-white light:border-slate-200 light:text-slate-600 light:hover:bg-slate-100',
@@ -144,12 +151,6 @@ export default function ContactsPage() {
             </button>
           ))}
         </div>
-
-        {/* Add button */}
-        <button onClick={openAdd}
-          className="ml-auto flex items-center gap-2 px-4 h-9 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold transition-colors shadow-sm shadow-violet-900/30">
-          <Plus size={14} />Add Contact
-        </button>
       </div>
 
       {/* ── Table ── */}
@@ -166,18 +167,22 @@ export default function ContactsPage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm min-w-[500px]">
             <thead>
               <tr className="border-b border-zinc-800 dark:border-zinc-800 light:border-slate-200">
                 {cols.map(({ label, k }) => (
-                  <th key={k} className="px-5 py-3 text-left">
+                  <th key={k} className={cn('px-4 sm:px-5 py-3 text-left',
+                    k === 'company'     && 'hidden sm:table-cell',
+                    k === 'value'       && 'hidden md:table-cell',
+                    k === 'lastContact' && 'hidden lg:table-cell',
+                  )}>
                     <button onClick={() => handleSort(k)}
                       className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-500 light:text-slate-500 hover:text-zinc-200 dark:hover:text-zinc-200 light:hover:text-slate-800 transition-colors">
                       {label}<SortIcon k={k} />
                     </button>
                   </th>
                 ))}
-                <th className="px-5 py-3 text-right">
+                <th className="px-4 sm:px-5 py-3 text-right">
                   <span className="text-xs font-medium text-zinc-500 dark:text-zinc-500 light:text-slate-500">Actions</span>
                 </th>
               </tr>
@@ -201,7 +206,7 @@ export default function ContactsPage() {
                   className="group hover:bg-zinc-800/40 dark:hover:bg-zinc-800/40 light:hover:bg-slate-50 transition-colors">
 
                   {/* Name */}
-                  <td className="px-5 py-3.5">
+                  <td className="px-4 sm:px-5 py-3.5">
                     <Link href={`/contacts/${contact.id}`} className="flex items-center gap-3">
                       <div className={cn('w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0', getAvatarColor(contact.id))}>
                         {initials(contact.name)}
@@ -213,28 +218,28 @@ export default function ContactsPage() {
                     </Link>
                   </td>
 
-                  {/* Company */}
-                  <td className="px-5 py-3.5 text-xs text-zinc-400 dark:text-zinc-400 light:text-slate-600">{contact.company}</td>
+                  {/* Company — hidden on xs */}
+                  <td className="px-4 sm:px-5 py-3.5 text-xs text-zinc-400 dark:text-zinc-400 light:text-slate-600 hidden sm:table-cell">{contact.company}</td>
 
                   {/* Status */}
-                  <td className="px-5 py-3.5">
+                  <td className="px-4 sm:px-5 py-3.5">
                     <span className={cn('text-[11px] font-medium px-2.5 py-1 rounded-full', STATUS_BADGE[contact.status])}>
                       {contact.status}
                     </span>
                   </td>
 
-                  {/* Value */}
-                  <td className="px-5 py-3.5 text-xs font-semibold text-zinc-300 dark:text-zinc-300 light:text-slate-700 tabular-nums">
+                  {/* Value — hidden on mobile */}
+                  <td className="px-4 sm:px-5 py-3.5 text-xs font-semibold text-zinc-300 dark:text-zinc-300 light:text-slate-700 tabular-nums hidden md:table-cell">
                     {contact.value > 0 ? formatCurrency(contact.value) : <span className="text-zinc-600 dark:text-zinc-600 light:text-slate-400 font-normal">—</span>}
                   </td>
 
-                  {/* Last contact */}
-                  <td className="px-5 py-3.5 text-xs text-zinc-500 dark:text-zinc-500 light:text-slate-500">
+                  {/* Last contact — hidden on mobile/tablet */}
+                  <td className="px-4 sm:px-5 py-3.5 text-xs text-zinc-500 dark:text-zinc-500 light:text-slate-500 hidden lg:table-cell">
                     {formatRelativeDate(contact.lastContact)}
                   </td>
 
                   {/* Actions */}
-                  <td className="px-5 py-3.5">
+                  <td className="px-4 sm:px-5 py-3.5">
                     {confirmDelete === contact.id ? (
                       <div className="flex items-center gap-2 justify-end">
                         <span className="text-xs text-zinc-400">Delete?</span>

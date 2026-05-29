@@ -9,17 +9,17 @@ export default function PipelinePage() {
 
   return (
     <div className="max-w-[1400px] space-y-5">
-      {/* Summary */}
-      <div className="flex flex-wrap gap-4">
+      {/* Summary — 2×2 on mobile, 4-col on sm+ */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: 'Active Deals', value: active.length.toString() },
+          { label: 'Active Deals',   value: active.length.toString() },
           { label: 'Total Pipeline', value: formatCurrency(totalPipelineValue) },
           { label: 'Weighted Value', value: formatCurrency(weightedValue) },
-          { label: 'Avg Deal Size', value: formatCurrency(active.length ? totalPipelineValue / active.length : 0) },
+          { label: 'Avg Deal Size',  value: formatCurrency(active.length ? totalPipelineValue / active.length : 0) },
         ].map(({ label, value }) => (
-          <div key={label} className="rounded-xl border border-zinc-800 bg-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 light:border-slate-200 light:bg-white px-5 py-3.5 flex items-center gap-4">
+          <div key={label} className="rounded-xl border border-zinc-800 bg-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 light:border-slate-200 light:bg-white p-4">
             <p className="text-xs text-zinc-500 dark:text-zinc-500 light:text-slate-500">{label}</p>
-            <p className="text-lg font-bold text-zinc-100 dark:text-zinc-100 light:text-slate-900">{value}</p>
+            <p className="text-lg font-bold text-zinc-100 dark:text-zinc-100 light:text-slate-900 mt-1">{value}</p>
           </div>
         ))}
       </div>

@@ -28,7 +28,7 @@ export default function TeamPage() {
     <div className="max-w-5xl space-y-6">
 
       {/* Header summary */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
         {[
           { label: 'Team Members', value: team.length, sub: 'across all roles' },
           { label: 'Total Contacts', value: contacts.length, sub: 'assigned to team' },
